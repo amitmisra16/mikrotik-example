@@ -1,6 +1,6 @@
 # Mikrotik Example
 
-This project uses java api provided by [Mikrotik-java](!https://github.com/GideonLeGrange/mikrotik-java) to connect to a mikrotik routerOS and execute some 
+This project uses java api provided by [Mikrotik-java](https://github.com/GideonLeGrange/mikrotik-java) to connect to a mikrotik routerOS and execute some 
 commands. 
 
 ## Initial setup

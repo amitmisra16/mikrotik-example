@@ -25,5 +25,6 @@ public class MikrotikDhcpServerCommandRunner implements CommandLineRunner {
         for (Map<String,String> r : rs) {
             log.info("{}", r);
         }
+        apiConnection.close();
     }
 }

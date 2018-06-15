@@ -17,13 +17,11 @@ public class MikrotikPppoeServerCommandRunner extends AbstractMikrotikRunner {
     @Override
     public void run(String... args) throws Exception {
         ApiConnection apiConnection = connect();
-
         log.info("Get Mikrokit pppoe-server info");
         List<Map<String, String>> rs = apiConnection.execute(MikrotikCommands.INTERFACE_PPPOE_SERVER_PRINT_COMMAND.command());
         for (Map<String,String> r : rs) {
             log.info("{}", r);
         }
-
         apiConnection.close();
     }
 }

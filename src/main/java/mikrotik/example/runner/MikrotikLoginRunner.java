@@ -13,7 +13,8 @@ public class MikrotikLoginRunner extends AbstractMikrotikRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        ApiConnection apiConnection = connect();
-        apiConnection.close();
+        try (ApiConnection apiConnection = connect()) {
+            log.info("Connected to mikrotik over non-tls\n=========================================================\n");
+        }
     }
 }

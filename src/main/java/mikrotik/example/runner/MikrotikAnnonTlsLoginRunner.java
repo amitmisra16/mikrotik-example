@@ -13,7 +13,11 @@ public class MikrotikAnnonTlsLoginRunner extends AbstractMikrotikRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        ApiConnection apiConnection = connectUsingAnnonTls();
-        apiConnection.close();
+
+        try (ApiConnection apiConnection = connectUsingAnnonTls()) {
+            log.info("Connected using anonymous tls connection");
+        } finally {
+            log.info("Finished executing MikrotikAnnonTlsLoginRunner\n=========================================================\n");
+        }
     }
 }

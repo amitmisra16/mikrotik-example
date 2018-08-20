@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.net.SocketFactory;
 import javax.net.ssl.SSLSocket;
@@ -15,10 +16,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
 import me.legrange.mikrotik.ApiConnection;
 import me.legrange.mikrotik.MikrotikApiException;
 
 @Component
+@Slf4j
 public abstract class AbstractMikrotikRunner implements CommandLineRunner {
 
     @Value("${mikrotik.management.ipaddress}")
@@ -39,13 +42,21 @@ public abstract class AbstractMikrotikRunner implements CommandLineRunner {
     protected ApiConnection connect() throws MikrotikApiException {
         ApiConnection apiConnection = ApiConnection.connect(mikrotikIpAddress);
         apiConnection.login(mikrotikUsername, mikrotikPassword);
+        log.info("Connected using username: {}", mikrotikUsername);
         return apiConnection;
     }
 
     protected ApiConnection connectUsingAnnonTls() throws MikrotikApiException {
         ApiConnection apiConnection = ApiConnection.connect(AnonymousSocketFactory.getDefault(), mikrotikIpAddress, ApiConnection.DEFAULT_TLS_PORT, ApiConnection.DEFAULT_CONNECTION_TIMEOUT);
         apiConnection.login(mikrotikUsername, mikrotikPassword);
+        log.info("=========================================================\nConnected over TLS using username: {}", mikrotikUsername);
         return apiConnection;
+    }
+
+    protected void printResultSet(List<Map<String, String>> rs) {
+        for (Map<String, String> r : rs) {
+            log.info("{}", r);
+        }
     }
 
     static class AnonymousSocketFactory extends SocketFactory {

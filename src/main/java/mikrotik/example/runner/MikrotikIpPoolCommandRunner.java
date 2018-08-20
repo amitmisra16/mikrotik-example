@@ -17,20 +17,16 @@ public class MikrotikIpPoolCommandRunner extends AbstractMikrotikRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        ApiConnection apiConnection = connect();
+        try (ApiConnection apiConnection = connectUsingAnnonTls()) {
+            log.info("Get Mikrokit ip pool info");
+            List<Map<String, String>> rs = apiConnection.execute(MikrotikCommands.IP_POOL_PRINT_COMMAND.command());
+            printResultSet(rs);
 
-        log.info("Get Mikrokit ip pool info");
-        List<Map<String, String>> rs = apiConnection.execute(MikrotikCommands.IP_POOL_PRINT_COMMAND.command());
-        for (Map<String,String> r : rs) {
-            log.info("{}", r);
+            log.info("Get Mikrokit used ip pool info");
+            rs = apiConnection.execute(MikrotikCommands.IP_POOL_USER_PRINT_COMMAND.command());
+            printResultSet(rs);
+        } finally {
+            log.info("Finished executing MikrotikIpPoolCommandRunner\n=========================================================\n");
         }
-
-        log.info("Get Mikrokit used ip pool info");
-        rs = apiConnection.execute(MikrotikCommands.IP_POOL_USER_PRINT_COMMAND.command());
-        for (Map<String,String> r : rs) {
-            log.info("{}", r);
-        }
-
-        apiConnection.close();
     }
 }

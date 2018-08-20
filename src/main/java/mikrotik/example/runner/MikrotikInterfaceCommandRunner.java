@@ -17,25 +17,22 @@ public class MikrotikInterfaceCommandRunner extends AbstractMikrotikRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        ApiConnection apiConnection = connect();
+        try (ApiConnection apiConnection = connectUsingAnnonTls()) {
 
-        log.info("Get Mikrokit interface info");
-        List<Map<String, String>> rs = apiConnection.execute(MikrotikCommands.INTERFACE_PRINT.command());
-        for (Map<String,String> r : rs) {
-            log.info("{}", r);
-        }
 
-        log.info("Get Mikrotik ethernet info");
-        rs = apiConnection.execute(MikrotikCommands.INTERFACE_ETHERNET_PRINT.command());
-        for (Map<String,String> r : rs) {
-            log.info("{}", r);
-        }
+            log.info("Get Mikrokit interface info");
+            List<Map<String, String>> rs = apiConnection.execute(MikrotikCommands.INTERFACE_PRINT.command());
+            printResultSet(rs);
 
-        log.info("Get Mikrokit ip address");
-        rs = apiConnection.execute(MikrotikCommands.IP_ADDRESS_PRINT.command());
-        for (Map<String,String> r : rs) {
-            log.info("{}", r);
+            log.info("Get Mikrotik ethernet info");
+            rs = apiConnection.execute(MikrotikCommands.INTERFACE_ETHERNET_PRINT.command());
+            printResultSet(rs);
+
+            log.info("Get Mikrokit ip address");
+            rs = apiConnection.execute(MikrotikCommands.IP_ADDRESS_PRINT.command());
+            printResultSet(rs);
+        } finally {
+            log.info("Finished executing MikrotikInterfaceCommandRunner\n=========================================================\n");
         }
-        apiConnection.close();
     }
 }

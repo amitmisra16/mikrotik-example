@@ -5,11 +5,16 @@ public enum MikrotikCommands {
     INTERFACE_PRINT("/interface/print"),
     INTERFACE_ETHERNET_PRINT("/interface/ethernet/print"),
     INTERFACE_PPPOE_SERVER_PRINT_COMMAND("/interface/pppoe-server/print"),
+    INTERFACE_PPPOE_SERVER_SERVER_PRINT_COMMAND("/interface/pppoe-server/server/print"),
+    INTERFACE_PPPOE_CLIENT_PRINT_COMMAND("/interface/pppoe-client/print"),
+    PPP_PROFILE_PRINT("/ppp/profile/print"),
+    PPP_SECRET_PRINT("/ppp/secret/print"),
     IP_ADDRESS_PRINT("/ip/address/print"),
     IP_POOL_PRINT_COMMAND("/ip/pool/print"),
     IP_POOL_USER_PRINT_COMMAND("/ip/pool/used/print"),
     DHCP_SERVER_PRINT_COMMAND("/ip/dhcp-server/print"),
     DHCP_SERVER_LEASE_PRINT("/ip/dhcp-server/lease/print"),
+    DHCP_CLIENT_PRINT_COMMAND("/ip/dhcp-client/print"),
     CALEA_ADD_ACTION_SRC_IP("/ip/firewall/calea/add action=sniff-pc chain=forward sniff-id=%s "+
              "sniff-target=%s sniff-target-port=%s src-address=%s"),
     CALEA_ADD_ACTION_DEST_IP("/ip/firewall/calea/add action=sniff-pc chain=forward sniff-id=%s "+
